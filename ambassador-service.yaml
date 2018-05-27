@@ -13,13 +13,6 @@ metadata:
       name:  shopfront_stable
       prefix: /shopfront/
       service: shopfront:8010
-      ---
-      apiVersion: ambassador/v0
-      kind:  Mapping
-      name:  shopfront_canary
-      prefix: /shopfront/
-      weight: 50
-      service: shopfront-canary:8010
 spec:
   type: LoadBalancer
   ports:

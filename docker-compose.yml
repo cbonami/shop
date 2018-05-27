@@ -1,17 +1,17 @@
 version: '2'
 services:
   shopfront:
-    image: cbonami/djshopfront
+    image: cbonami/shopfront
     ports:
      - "8010:8010"
     links:
       - productcatalogue
       - stockmanager
   productcatalogue:
-    image: cbonami/djproductcatalogue
+    image: cbonami/productcatalogue
     ports:
      - "8020:8020"
   stockmanager:
-    image: cbonami/djstockmanager
+    image: cbonami/stockmanager
     ports:
      - "8030:8030" 
