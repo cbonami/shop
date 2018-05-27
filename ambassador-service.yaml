@@ -12,7 +12,7 @@ metadata:
       kind:  Mapping
       name:  shopfront_stable
       prefix: /shopfront/
-      service: shopfront:8010
+      service: shopfront-dev:8010
 spec:
   type: LoadBalancer
   ports:
