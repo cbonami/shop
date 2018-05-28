@@ -24,10 +24,14 @@ GitHub (source code + dockerfile) --push-hook-> Travis (build java + docker imag
 
 # Ambassador API Gateway
 
+The shopfront will be accessible on a URI exposed by Ambassador.
+
 [Important: Microservice API Gateway is different from Enterprise API Gateway](https://www.getambassador.io/about/microservices-api-gateways)
 [Rate Limiting](https://blog.getambassador.io/rate-limiting-for-api-gateways-892310a2da02)
 
 ## Deployment of Ambassador
+
+For the time being, we deploy Ambassador 'manually' via kubectl, and not (yet) via Spinnaker.
 
 ```bash
 kubectl apply -f ambassador-service.yaml
