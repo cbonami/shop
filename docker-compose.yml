@@ -1,9 +1,10 @@
 version: '2'
 services:
-  shopfront:
+  shopfront-dev:
     image: cbonami/shopfront
     ports:
      - "8010:8010"
+     - "8011:8011"
     links:
       - productcatalogue
       - stockmanager
@@ -11,7 +12,9 @@ services:
     image: cbonami/productcatalogue
     ports:
      - "8020:8020"
+     - "8021:8021"
   stockmanager:
     image: cbonami/stockmanager
     ports:
      - "8030:8030" 
+     - "8031:8031"

@@ -76,7 +76,7 @@ helm chart can be found here: https://github.com/kubernetes/charts/tree/master/s
 curl -Lo values.yaml https://raw.githubusercontent.com/kubernetes/charts/master/stable/spinnaker/values.yaml
 ```
 Make changes to spinnaker.yml: add docker hub repo's.
-Then do ythe actual installation of spinnaker:
+Then do the actual installation of spinnaker:
 
 ```bash
 helm install -n kubelive stable/spinnaker -f values.yaml --timeout 300 --namespace spinnaker

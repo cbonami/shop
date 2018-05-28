@@ -27,18 +27,25 @@ Repo-name needs to be unique, so pick something that doesn't exist yet.
 
 ## Create k8s cluster
 
+### Make keypair
+
+Create a new private/public keypair:
+```bash
+ssh-keygen -f ~/.ssh/id_rsa
+```
+
+The private key will be used to log in to the k8s instances.
+Btw, this is your public key:
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
 ### Create cluster
 
 ```bash
 kops create cluster --name=kubernetes.edonis.club --state=s3://kops-state-azerty --zones=eu-central-1a,eu-central-1b --node-count=3 --node-size=t2.medium --master-size=t2.small --dns-zone=kubernetes.edonis.club
 kops update cluster kubernetes.edonis.club --yes
-```
-
-
-### Validate cluster
-
-```bash
-kops validate cluster kubernetes.edonis.club
 ```
 
 convenient: edit ~/.bashrc
@@ -48,6 +55,11 @@ export KOPS_STATE_STORE=s3://kops-state-azerty
 export EDITOR=nano
 ```
 
+### Validate cluster
+
+```bash
+kops validate cluster kubernetes.edonis.club
+```
 
 ### Modify cluster
 ```bash
