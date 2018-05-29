@@ -18,16 +18,24 @@ However, the purpose of this demo is to demonstrate deployment of these apps on 
 Also, in the k8s deployment, we will make use of [Ambassador](https://blog.getambassador.io/), the Kubernetes-native microservice API-gateway of our choice.
 In [this](./K8S.MD) and [this](./SPINNAKER.MD) included guide, there are detailed instructions on how to get a K8S cluster up & running on AWS, and installing Spinnaker on it.
 
+# Prerequisites
+ 
+* [Install Kubernetes Cluster](./K8S.MD)
+* [Install Spinnaker](./SPINNAKER.MD)
+* Get GitHub account
+* Get [Travis](https://travis-ci.org/) account, linked to GitHub account
+* Get DockerHub account
+
 ## CI/CD pipeline
 
-GitHub (source code + dockerfile) --push-hook-> [Travis](https://travis-ci.org/) (build java + docker image) --push docker image--> docker hub --polling-> spinnaker --deploy-> k8s (AWS)
+GitHub (source code + dockerfile) --push-hook-> Travis (build java + docker image) --push docker image--> docker hub --polling-> spinnaker --deploy-> k8s (AWS)
 
 # Ambassador API Gateway
 
-The shopfront will be accessible on a URI exposed by [Ambassador](https://blog.getambassador.io/).
+The shopfront will be accessible on a URI exposed by [Ambassador](https://blog.getambassador.io/)
 
-[Important: Microservice API Gateway is different from Enterprise API Gateway](https://www.getambassador.io/about/microservices-api-gateways)
-[Rate Limiting](https://blog.getambassador.io/rate-limiting-for-api-gateways-892310a2da02)
+* [Important: Microservice API Gateway <> Enterprise API Gateway](https://www.getambassador.io/about/microservices-api-gateways)
+* [Rate Limiting](https://blog.getambassador.io/rate-limiting-for-api-gateways-892310a2da02)
 
 ## Deployment of Ambassador
 
@@ -54,3 +62,34 @@ http://localhost:8877/ambassador/v0/diag/
 kubectl port-forward ambassador-67cf9d9f6b-2gjgv 8080:80
 http://localhost:8080/shopfront/
 ``` 
+
+# Consul 
+
+### Deployment Layout
+
+[Setup with Spring Boot & Docker](https://hariinfo.github.io/notes/Spring-Consul-Kubernetes)
+
+------- POD 1 --------------------    ------- POD 2 ----------------------
+                                 |   |   Consul server 0 (Leader)         |
+                                 |    ------------------------------------
+                                 |    --------- POD 3 --------------------  
+Spring Boot App -> Consul Agent  | ->|   Consul server 1                  |
+(container 1)      (container 2) |    ------------------------------------
+                                 |    -------- POD 4 ---------------------       
+                                 |   |   Consul server 2                  |
+----------------------------------    ------------------------------------
+
+### Create
+
+kubectl create -f consul-config.yaml
+kubectl create -f consul-server-service.yaml
+kubectl create -f consul-server-deploy.yaml
+
+
+### Delete
+
+kubectl delete statefulset,service consul
+kubectl delete configmap consul-config
+
+
+[More secure setup of Consul cluster with TLS enabled](https://github.com/kelseyhightower/consul-on-kubernetes)

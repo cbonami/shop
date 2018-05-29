@@ -1,5 +1,9 @@
 # Kubernetes Installation Guide
 
+We will make use of [Kops](https://github.com/kubernetes/kops) to create a K8s cluster on AWS.
+The cluster will be assigned to a domain name on the internet (eg 'kubernetes.edonis.club').
+All setup will be orchestrated from withing a local Ubuntu-based VM.
+
 ## Register a domain for the k8s cluster
 
 Register domain: on AWS itself or via another service, like Namecheap.
@@ -23,9 +27,40 @@ Use these 4 DNS-records in Namecheap to make 4 NS records (name='kubernetes') in
 Use AWS dashboard to create S3 bucket for kops-state: s3://kops-state-azerty.
 Repo-name needs to be unique, so pick something that doesn't exist yet.
 
-## Install Kops CLI
+## Install Vagrant on your local host
 
-## Create k8s cluster
+> todo
+
+## Start a VM
+
+```bash
+mkdir ubuntu 
+cd ubuntu
+vagrant init ubuntu/xenial64
+vagrant up
+```
+
+Log in into the VM:
+
+```bash
+vagrant ssh
+```
+
+From this moment on we will be working in the VM.
+
+## Install AWS CLI
+
+> todo
+
+## Install Kops
+
+> todo
+
+## Install kubectl
+
+> todo
+
+## Create Kubernetes cluster
 
 ### Make keypair
 
@@ -62,6 +97,9 @@ kops validate cluster kubernetes.edonis.club
 ```
 
 ### Modify cluster
+
+You can add nodes to the cluster, change type of nodes, etc by editing the kops-state.
+
 ```bash
 kops edit ig nodes --state=s3://kops-state-azerty
 kops update cluster kubernetes.edonis.club --yes --state=s3://kops-state-azerty
