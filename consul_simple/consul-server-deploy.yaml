@@ -9,7 +9,6 @@ spec:
     metadata:
       labels:
         app: consul
-      namespace: default
     spec:
       terminationGracePeriodSeconds: 10
       securityContext:
