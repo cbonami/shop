@@ -88,7 +88,6 @@ sudo apt-get install python-pip
 ```bash
 export LC_ALL=C
 pip install awscli --upgrade --user
-aws configure
 ```
 
 Configure AWS CLI:
@@ -99,7 +98,7 @@ aws configure
 AWS Access Key ID [****************TIOA]: 
 AWS Secret Access Key [****************/yfq]: 
 Default region name [eu-central-1]: 
-Default output format [yml]: json
+Default output format [json]:
 ```
 
 Use the credentials for the TME R&D AWS account, if you are connecting to the existing cluster that I've set up there.
@@ -107,7 +106,6 @@ Use the credentials for the TME R&D AWS account, if you are connecting to the ex
 ### Install kubectl
 
 ```bash
-export LC_ALL=C
 sudo snap install kubectl --classic
 ```
 

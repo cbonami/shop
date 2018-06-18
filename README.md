@@ -52,7 +52,7 @@ Then list all pods:
 ```bash 
 kubectl get pods
 ```
-Pick the name of a pod, eg 'ambassador-67cf9d9f6b-2gjgv'
+Pick the name of an ambassador-pod, eg 'ambassador-67cf9d9f6b-2gjgv'
 On your local machine, use port-forwarding to access Ambassador UI or shopfront.
 * Ambassador UI
 ```bash
@@ -64,6 +64,8 @@ http://localhost:8877/ambassador/v0/diag/
 kubectl port-forward ambassador-67cf9d9f6b-2gjgv 8080:80
 http://localhost:8080/shopfront/
 ``` 
+
+As the shopfront is exposed by the ambassador api gateway, you need to port-forward the ambassador-pod's port (80) to get access to the shopfront.
 
 # Consul 
 
