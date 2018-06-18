@@ -1,4 +1,6 @@
-# Shop Demo
+# Shop Microservices Demo 
+
+> Check out my Kubernetes + Spinnaker installation instructions [here](./K8S.MD) and [here](./SPINNAKER.MD)
 
 Goal is to demonstrate microservices and CI/CD with [Spinnaker](https://www.spinnaker.io/) on [Kubernetes](https://kubernetes.io/).
 The demo app consists of 3 very simple connected microservices (shopfront, productcatalogue and stockmanager) and a microservice API gateway ([Ambassador](https://blog.getambassador.io/)).
