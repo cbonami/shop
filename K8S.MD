@@ -37,6 +37,7 @@ Repo-name needs to be unique, so pick something that doesn't exist yet.
 mkdir ubuntu 
 cd ubuntu
 vagrant init ubuntu/xenial64
+vagrant plugin install vagrant-vbguest
 vagrant up
 ```
 
@@ -46,35 +47,90 @@ Log in into the VM:
 vagrant ssh
 ```
 
+Do some initialization:
+
+```bash
+sudo apt-get update && sudo apt-get -y upgrade
+sudo usermod -G vboxsf -a vagrant
+```
+
+Maybe best reboot the VM after this, to get the shared folder mounted. On your host OS:
+
+```bash
+vagrant reload
+```
+
 From this moment on we will be working in the VM.
 
-## Install AWS CLI
+## Prepare the VM
 
-> todo
+### SSH keypair
 
-## Install Kops
+Copy your existing ssh keypair files (id_rsa and id_rsa.pub) to ~/.ssh/
 
-> todo
+If you don't have an existing keypair, create a new private/public keypair like this:
 
-## Install kubectl
-
-> todo
-
-## Create Kubernetes cluster
-
-### Make keypair
-
-Create a new private/public keypair:
 ```bash
 ssh-keygen -f ~/.ssh/id_rsa
 ```
 
 The private key will be used to log in to the k8s instances.
-Btw, this is your public key:
+
+### Install Python PIP
 
 ```bash
-cat ~/.ssh/id_rsa.pub
+sudo apt-get install python-pip
 ```
+
+### Install AWS CLI
+
+```bash
+export LC_ALL=C
+pip install awscli --upgrade --user
+aws configure
+```
+
+Configure AWS CLI:
+
+```bash
+aws configure
+
+AWS Access Key ID [****************TIOA]: 
+AWS Secret Access Key [****************/yfq]: 
+Default region name [eu-central-1]: 
+Default output format [yml]: json
+```
+
+### Install kubectl
+
+```bash
+export LC_ALL=C
+sudo snap install kubectl --classic
+```
+
+*Important* : If you received a kubectl _config_ file (pointing to an existing kubernetes cluster on AWS), you should copy it to ~/.kube/. Then you can check if you can connect to the cluster:
+
+```bash
+kubectl get nodes
+```
+
+### Install Kops
+
+```bash
+curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+chmod +x kops-linux-amd64
+sudo mv kops-linux-amd64 /usr/local/bin/kops
+```
+
+### Install Helm
+
+```bash
+curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > get_helm.sh
+chmod 700 get_helm.sh
+./get_helm.sh
+```
+
+## Create Kubernetes cluster
 
 ### Create cluster
 
