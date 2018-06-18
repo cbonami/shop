@@ -64,24 +64,49 @@ helm init --service-account tiller
 (or just 'helm init' if sa tiller is not used)
 general info: https://dzone.com/articles/securing-helm
 
-sidenote: remove tiller
-option1: helm reset -f
-option2: kubectl -n "kube-system" delete deployment tiller-deploy
-tiller in its own namespace? https://medium.com/@amimahloof/how-to-setup-helm-and-tiller-with-rbac-and-namespaces-34bf27f7d3c3
+sidenote: removing tiller
+* option1: helm reset -f
+* option2: kubectl -n "kube-system" delete deployment tiller-deploy
+
+sidenote: tiller in its own namespace : https://medium.com/@amimahloof/how-to-setup-helm-and-tiller-with-rbac-and-namespaces-34bf27f7d3c3
 
 ## Install spinnaker with helm
-https://thenewstack.io/getting-started-spinnaker-kubernetes/
-helm chart can be found here: https://github.com/kubernetes/charts/tree/master/stable/spinnaker
+
+### Option 1: From-scratch spinnaker configuration
+
+[Instructions here](https://thenewstack.io/getting-started-spinnaker-kubernetes/)
+Base-helm chart can be found [here](https://github.com/kubernetes/charts/tree/master/stable/spinnaker)
 ```bash
+mkdir spinnaker
+cd spinnaker
 curl -Lo values.yaml https://raw.githubusercontent.com/kubernetes/charts/master/stable/spinnaker/values.yaml
 ```
-Make changes to spinnaker.yml: add docker hub repo's.
-Then do the actual installation of spinnaker:
+
+Then make required changes to spinnaker.yml:
+* add docker hub repo's; eg cbonami/shopfront, cbonami/productcatalogue, etc
+* anything else that you want to change
+
+### Option 2: Use the included values.yml
+
+I've included the values.yml file that I used to create the spinnaker cluster in EA's R&D environment.
+
+```bash
+cd spinnaker
+cat values.yml
+```
+
+You can see it already contains some docker repo's that belong to me (cbonami) and that I used for the shop-demo.
+You can edit it (eg add repo's) if you like.
+
+### Install spinnaker
+
+Perform the actual installation of spinnaker, based on the values.yml:
 
 ```bash
 helm install -n kubelive stable/spinnaker -f values.yaml --timeout 300 --namespace spinnaker
 ```
-check if all ok: 
+
+Check if all ok: 
 ```bash
 kubectl get pods --namespace spinnaker
 ```
