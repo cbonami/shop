@@ -67,8 +67,9 @@ From this moment on we will be working in the VM.
 ### SSH keypair
 
 Copy your existing ssh keypair files (id_rsa and id_rsa.pub) to ~/.ssh/
+I have provided this keypair to you, so that you can access the kubernetes cluster that is running in EA's R&D environment on AWS.
 
-If you don't have an existing keypair, create a new private/public keypair like this:
+If you are setting up a new cluster, and don't have an existing keypair (in ~/.ssh), then generate a new private/public keypair like this:
 
 ```bash
 ssh-keygen -f ~/.ssh/id_rsa
@@ -100,6 +101,8 @@ AWS Secret Access Key [****************/yfq]:
 Default region name [eu-central-1]: 
 Default output format [yml]: json
 ```
+
+Use the credentials for the TME R&D AWS account, if you are connecting to the existing cluster that I've set up there.
 
 ### Install kubectl
 
