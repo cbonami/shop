@@ -30,7 +30,9 @@ In [this](./K8S.MD) and [this](./SPINNAKER.MD) included guide, there are detaile
 
 ## CI/CD pipeline
 
+```bash 
 GitHub (source code + dockerfile) --push-hook-> Travis (build java + docker image) --push docker image--> docker hub --polling-> spinnaker --deploy-> k8s (AWS)
+```
 
 # Ambassador API Gateway
 
