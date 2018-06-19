@@ -158,7 +158,7 @@ todo: these namespaces don't show up in Spinnaker -- why ??
 ## Terminology 
 
 Spinnaker has some concepts/terminology that is mapped on the concepts/terminology of Kubernetes.
-This might in the beginning be confusing, so I listed the meaning of the different concepts and how they map:
+This might in the beginning be confusing, so I listed the meaning of the different concepts and how they map for your reference:
 
 * spinnaker 'account' -> used to authenticate against k8s and docker registry
 * spinnaker 'instance' --maps-> k8s *Pod*

@@ -34,10 +34,19 @@ GitHub (source code + dockerfile) --push-hook-> Travis (build java + docker imag
 
 # Ambassador API Gateway
 
-The shopfront will be accessible on a URI exposed by [Ambassador](https://blog.getambassador.io/)
+> [Important: Microservice API Gateway <> Enterprise API Gateway](https://www.getambassador.io/about/microservices-api-gateways)
 
-* [Important: Microservice API Gateway <> Enterprise API Gateway](https://www.getambassador.io/about/microservices-api-gateways)
-* [Rate Limiting](https://blog.getambassador.io/rate-limiting-for-api-gateways-892310a2da02)
+> Many of the typical Spring Cloud components and concerns (Zuul, Hystrix, Eureka or ServiceDiscovery in general, etc) were made for non-kubernetes setups. You will find that, in Kubernetes generally, and in Ambassador explicitly, a lot of these functionalities are implicitly or explicitly taken care of.
+
+The shopfront will be accessible on a URI exposed by [Ambassador](https://blog.getambassador.io/).
+Ambassador is a distribution of [Envoy API Gateway](https://www.envoyproxy.io/docs/envoy/latest/intro/what_is_envoy) specifically designed for Kubernetes.
+Ambassador operates as a specialized control plane to expose Envoy’s functionality as Kubernetes *annotations*, which assures seamless integration and ease-of-use.
+The API gateway offers a [plethora of features](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/arch_overview) that are very interesting in a Microservice context, but there is quite some overlap with other (standard) components that we have (Consul, Hystrix etc).
+Some time will be needed to investigate what to use when, and how things fit in eachother. For example:
+* (how) will we combine the multi-datacenter servicediscovery of HashiCorp Consul, with the (internal) service discovery of Ambassador ? does it even make sense to use Consul for service discovery, or will we simply use it as a config server ?
+* Will we use Hystrix, or the circuit breaker offered by Ambassador ? 
+* How does the health checking of Envoy/Ambassador can be linked to the Spring Boot Actuator health checks ?
+* etc
 
 ## Deployment of Ambassador
 
