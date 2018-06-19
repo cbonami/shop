@@ -82,6 +82,7 @@ As the shopfront is exposed by the ambassador api gateway, you need to port-forw
 
 ### Deployment Architecture
 
+```bash 
 ------- POD 1 --------------------    ------- POD 2 ----------------------
                                  |   |   Consul server 0 (Leader)         |
                                  |    ------------------------------------
@@ -91,6 +92,7 @@ Spring Boot App -> Consul Agent  | ->|   Consul server 1                  |
                                  |    -------- POD 4 ---------------------       
                                  |   |   Consul server 2                  |
 ----------------------------------    ------------------------------------
+```
 
 [Setup with Spring Boot & Docker](https://hariinfo.github.io/notes/Spring-Consul-Kubernetes)
 
