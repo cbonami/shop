@@ -12,7 +12,7 @@ Ambassador operates as a specialized control plane to expose Envoy’s functiona
 The API gateway offers a [plethora of features and microservice patterns](https://www.envoyproxy.io/docs/envoy/latest/intro/arch_overview/arch_overview) that are very interesting in a Microservice context, but there is quite some overlap with other (standard) components that we have:
 * HashiCorp Consul (not available at time of writing, but upcomming)
 * Enterprise API Gateway (same remark)
-Some time will be needed to investigate what to use when, and how things fit in eachother. For example:
+Some time will be needed to investigate what to use when, and how things work and fit in eachother. For example:
 * (how) will we combine the multi-datacenter *Service Discovery* of HashiCorp Consul, with the (internal) Service Discovery of Ambassador ? does it even make sense to use Consul for service discovery, or will we simply use it as a config server ?
 * How will we replace Hystrix with the *Circuit Breaker* offered by Ambassador ? 
 * How does the *Health Checking* of Envoy/Ambassador can be linked to the Spring Boot Actuator health checks ?
