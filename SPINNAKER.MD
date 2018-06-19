@@ -1,29 +1,5 @@
 # Spinnaker Installation Guide
 
-## Install kubectl
-
-### Ubuntu
-
-Easiest is to use snap, which is installed by default on Ubuntu >=16.04:
-
-```bash
-sudo snap install kubectl --classic
-```
-
-### OSX
-
-```bash
-brew install kubectl
-```
-
-### Windows
-
-```bash
-choco install kubernetes-cli
-```
-
-[More options](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-
 ## Install Helm
 
 ### Ubuntu
@@ -64,9 +40,17 @@ helm init --service-account tiller
 (or just 'helm init' if sa tiller is not used)
 general info: https://dzone.com/articles/securing-helm
 
-sidenote: removing tiller
-* option1: helm reset -f
-* option2: kubectl -n "kube-system" delete deployment tiller-deploy
+Sidenote: removing tiller
+* option1: 
+
+```bash
+helm reset -f
+```
+* option2: 
+
+```bash
+kubectl -n "kube-system" delete deployment tiller-deploy
+```
 
 sidenote: tiller in its own namespace : https://medium.com/@amimahloof/how-to-setup-helm-and-tiller-with-rbac-and-namespaces-34bf27f7d3c3
 
