@@ -58,8 +58,8 @@ sidenote: tiller in its own namespace : https://medium.com/@amimahloof/how-to-se
 
 ### Option 1: From-scratch spinnaker configuration
 
-[Instructions here](https://thenewstack.io/getting-started-spinnaker-kubernetes/)
-Base-helm chart can be found [here](https://github.com/kubernetes/charts/tree/master/stable/spinnaker)
+[Instructions here](https://thenewstack.io/getting-started-spinnaker-kubernetes/).
+Base helm chart can be found [here](https://github.com/kubernetes/charts/tree/master/stable/spinnaker).
 ```bash
 mkdir spinnaker
 cd spinnaker
@@ -80,7 +80,7 @@ cat values.yml
 ```
 
 You can see it already contains some docker repo's that belong to me (cbonami) and that I used for the shop-demo.
-You can edit it (eg add repo's) if you like.
+You can edit the file (eg add repo's) if you like.
 
 ### Install spinnaker
 
@@ -142,7 +142,7 @@ helm upgrade -f values.yaml kubelive stable/spinnaker
 helm del --purge kubelive
 ```
 
-## Create namespaces 'DEV' and 'PROD'
+## Optional: Create namespaces 'DEV' and 'PROD'
 
 https://kubernetes.io/docs/tasks/administer-cluster/namespaces-walkthrough/
 
@@ -153,4 +153,22 @@ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/namespace-prod.js
 
 Best-practice: set contexts
 
-Problem: these namespaces don't show up in Spinnaker -- why ??
+todo: these namespaces don't show up in Spinnaker -- why ??
+
+## Terminology 
+
+Spinnaker has some concepts/terminology that is mapped on the concepts/terminology of Kubernetes.
+This might in the beginning be confusing, so I listed the meaning of the different concepts and how they map:
+
+* spinnaker 'account' -> used to authenticate against k8s and docker registry
+* spinnaker 'instance' --maps-> k8s *Pod*
+* spinnaker 'server group' = a set of instances --maps-> *Replica Set* = a set of instances of the same pod
+* spinnaker 'load balancer' --maps-> *Service* (types: NodePort, ClusterIP, LoadBalancer, Pet Set etc) containing a Replica Set
+* spinnaker 'cluster' = a logical grouping of spinnaker server groups; eg: demoapp-staging, demoapp-prod
+* spinnaker 'application' = a logical grouping of clusters; eg demoapp
+
+Plz note that Spinnaker uses a naming convention for its resources:
+
+```bash
+application-stack-detail-version
+```
