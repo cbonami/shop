@@ -58,15 +58,16 @@ Maybe best reboot the VM after this, to get the shared folder mounted. On your h
 
 ```bash
 vagrant reload
+vagrant ssh
 ```
 
-From this moment on we will be working in the VM.
+From this moment on, we will be working in the VM.
 
 ## Prepare the VM
 
 ### SSH keypair
 
-Copy your existing ssh keypair files (id_rsa and id_rsa.pub) to ~/.ssh/
+Copy your existing ssh keypair files (id_rsa and id_rsa.pub) to ~/.ssh/ .
 I have provided this keypair to you, so that you can access the kubernetes cluster that is running in EA's R&D environment on AWS.
 
 If you are setting up a new cluster, and don't have an existing keypair (in ~/.ssh), then generate a new private/public keypair like this:
@@ -140,10 +141,13 @@ kops create cluster --name=kubernetes.edonis.club --state=s3://kops-state-azerty
 kops update cluster kubernetes.edonis.club --yes
 ```
 
-convenient: edit ~/.bashrc
-add these lines:
+Optional but convenient: edit ~/.bashrc
+Add these lines:
 ```bash
+# avoids having to specify this every time your run the kops CLI
 export KOPS_STATE_STORE=s3://kops-state-azerty
+
+# only if you don't like vi
 export EDITOR=nano
 ```
 
@@ -173,8 +177,9 @@ kubectl run hello-minikube --image=gcr.io/google_containers/echoserver:1.4 --por
 kubectl expose deployment hello-minikube --type=NodePort
 kubectl get service 
 ```
---> gives you the port the echo-service is running on (31317)
+--> gives you the port the echo-service is running on (31317).
+
 In AWS dashboard, open port via creation of AWS Security Group of master node.
-Then go to Route53 > Hosted Zone (kubernetes.edonis.club)
-Discover the api-url: http://api.kubernetes.edonis.club:31317/test
+Then go to Route53 > Hosted Zone (kubernetes.edonis.club).
+Discover the api-url: http://api.kubernetes.edonis.club:31317/test .
 Point your browser to that url.
