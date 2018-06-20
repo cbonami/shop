@@ -1,13 +1,16 @@
 # Shop Microservices Demo 
 
-> Check out my Kubernetes + Spinnaker installation instructions [here](./K8S.MD) and [here](./SPINNAKER.MD)
+> Check out my Kubernetes + Spinnaker installation instructions in [K8S.MD](./K8S.MD) and [SPINNAKER.MD](./SPINNAKER.MD)
 
-> Motivation behind the 'glue'-technology between our microservices -Ambassador/Envoy- can be found [here](./AMBASSADOR.MD)
+> Motivation behind the 'glue'-technology between our microservices -Ambassador/Envoy as a [sidecar container](https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns/)- can be found in [AMBASSADOR.MD](./AMBASSADOR.MD)
 
 Goal is to demonstrate microservices and CI/CD with [Spinnaker](https://www.spinnaker.io/) on [Kubernetes](https://kubernetes.io/).
-The demo app consists of 3 very simple connected microservices (shopfront, productcatalogue and stockmanager) and a microservice API gateway ([Ambassador](https://blog.getambassador.io/)).
+The demo app consists of:
+* 3 very simple connected microservices ([shopfront](https://github.com/cbonami/shopfront), [productcatalogue](https://github.com/cbonami/productcatalogue) and [stockmanager](https://github.com/cbonami/stockmanager)) 
+* and a microservice API gateway ([Ambassador](https://blog.getambassador.io/))
+
 The shopfront accesses productcatalogue and stockmanager (proxy microservice pattern).
-The initial code for the demo is stolen [here](https://www.oreilly.com/ideas/how-to-manage-docker-containers-in-kubernetes-with-java) and has been enhanced a bit and tuned for Spinnaker.
+The initial code for the demo is stolen [here](https://www.oreilly.com/ideas/how-to-manage-docker-containers-in-kubernetes-with-java) and has been enhanced and slightly tuned for Spinnaker.
 Shopfront and stockmanager are based on Spring Boot and Spring Cloud, the productcatalogue is a [Dropwizard](https://www.dropwizard.io/1.3.2/docs/#) service.
 
 To deploy the application in your local docker host, execute the following:
