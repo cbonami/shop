@@ -87,15 +87,19 @@ Spring Boot App -> Consul Agent  | ->|   Consul server 1                  |
 
 ### Create
 
+```bash 
 kubectl create -f consul-config.yaml
 kubectl create -f consul-server-service.yaml
 kubectl create -f consul-server-deploy.yaml
+```
 
 
 ### Delete
 
+```bash 
 kubectl delete statefulset,service consul
 kubectl delete configmap consul-config
+```
 
 
 [More secure setup of Consul cluster with TLS enabled](https://github.com/kelseyhightower/consul-on-kubernetes)
